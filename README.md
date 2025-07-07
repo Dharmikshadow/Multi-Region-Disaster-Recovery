@@ -7,6 +7,7 @@ To design and implement a multi-region disaster recovery solution using AWS serv
 🌐 Architecture Overview
 
 The architecture involves provisioning AWS resources across two regions to create a highly available and resilient infrastructure. Key components include Amazon VPC for networking, Amazon S3 for cross-region data replication, Amazon RDS for multi-region database deployment, and Route 53 for DNS failover routing. The solution ensures that both regions are synchronized and can automatically switch to the backup region if needed.
+
 🧩 AWS Services Used
 
 - Amazon VPC (Virtual Private Cloud) for networking
@@ -17,17 +18,20 @@ The architecture involves provisioning AWS resources across two regions to creat
 - Jenkins / AWS CodePipeline for CI/CD automation
  
 Brief about the services used:
+
 🏗️ Amazon VPC
 A Virtual Private Cloud (VPC) lets us launch AWS resources in a logically isolated portion of the AWS Cloud, giving us control over IP addressing, subnets, routing, and connectivity 
 •	🔗 https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
 •	We will create two VPCs (one for Active, one for Pilot Light), each with public/private subnets, IGWs, NAT gateways, and route tables to manage traffic flow and network segmentation.
 ________________________________________
+
 🖥️ Amazon EC2 (Elastic Compute Cloud)
 Amazon EC2 provides secure, resizable compute capacity in the cloud. It allows you to launch virtual servers (instances), configure networking, and attach storage to run your applications.
 📘 Docs:
 🔗https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html
 •	We'll set up ASGs in both regions to scale EC2 capacity based on load and ensure resilience of compute services.
 ________________________________________
+
 📈 Auto Scaling Groups (ASG)
 EC2 Auto Scaling Groups manage a group of EC2 instances. You define policies for scaling in or out based on metrics like CPU utilization, allowing your infrastructure to automatically adapt to load while maintaining availability and minimizing cost.
 📘 Docs:
@@ -35,24 +39,25 @@ EC2 Auto Scaling Groups manage a group of EC2 instances. You define policies for
 •	We'll set up ASGs in both regions to scale EC2 capacity based on load and ensure resilience of compute services.
 ________________________________________
 
-
-
 🗂️ S3 (with CRR)
 Amazon S3 is a highly durable object storage service, supporting features like versioning, cross-region replication (CRR), and high performance 
 •	We'll enable versioning and configure CRR to asynchronously replicate objects from the Active bucket to the Pilot Light bucket, protecting against regional failure.
 •	🔗https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html
 ________________________________________
+
 📶 Application Load Balancer (ALB)
 While not directly cited above, ALB is part of Elastic Load Balancing, offering flexible routing and TLS termination for HTTP/HTTPS traffic.
 •	We'll deploy ALBs in each region, forwarding traffic only to healthy EC2 instances managed by ASGs.
 •	Reference - https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html
 ________________________________________
+
 💾 Amazon RDS
 Amazon Relational Database Service (RDS) is a managed relational database service with automation for patching, backups, and high availability.
 •	📘 Reference Documentation:
 🔗https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html
 •	We'll deploy a Multi-AZ primary in Active region and a cross-region read replica in Pilot Light for DR and failover.
 ________________________________________
+
 🌐 Route 53 (DNS Failover)
 Amazon Route 53 provides highly available DNS with health checks and traffic failover capabilities.
 •	We'll configure DNS failover: Route 53 will route to the Active ALB by default and switch to the Pilot Light ALB if health checks fail.
