@@ -63,6 +63,7 @@ Amazon Route 53 provides highly available DNS with health checks and traffic fai
 •	We'll configure DNS failover: Route 53 will route to the Active ALB by default and switch to the Pilot Light ALB if health checks fail.
 •	📘 Reference Docs:
 🔗https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html
+________________________________________
 
 ✅ Project Implementation Plan 
 
