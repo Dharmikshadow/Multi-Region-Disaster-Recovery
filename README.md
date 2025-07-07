@@ -1,9 +1,14 @@
 Multi-Region Disaster Recovery
+
 📌 Objective
+
 To design and implement a multi-region disaster recovery solution using AWS services, where infrastructure is deployed in two AWS regions. The solution will replicate data across regions, ensure high availability, and implement a failover mechanism for disaster recovery. The project involves using Terraform to provision infrastructure, and CI/CD pipelines to ensure both regions remain synchronized for disaster recovery and failover.
+
 🌐 Architecture Overview
+
 The architecture involves provisioning AWS resources across two regions to create a highly available and resilient infrastructure. Key components include Amazon VPC for networking, Amazon S3 for cross-region data replication, Amazon RDS for multi-region database deployment, and Route 53 for DNS failover routing. The solution ensures that both regions are synchronized and can automatically switch to the backup region if needed.
 🧩 AWS Services Used
+
 - Amazon VPC (Virtual Private Cloud) for networking
 - Amazon S3 for data replication across regions
 - Amazon RDS for relational database deployment and cross-region replication
