@@ -65,10 +65,17 @@ Amazon Route 53 provides highly available DNS with health checks and traffic fai
 🔗https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html
 
 ✅ Project Implementation Plan 
+
 •	We will provision independent VPCs in both the Active and Pilot regions. Each VPC will include public and private subnets, internet gateways (IGWs), NAT gateways, and properly configured route tables.
+
 •	We will create S3 buckets in both regions with versioning enabled. Cross-region replication will be configured to replicate data from the Active region to the Pilot region.
+
 •	We will deploy a Multi-AZ RDS instance in the Active region to serve as the primary database. A read replica will be set up in the Pilot region for disaster recovery.
+
 •	We will configure security groups to allow secure and expected communication. ALBs will allow HTTP/HTTPS traffic, and RDS will permit MySQL access only from EC2 instances in the Auto Scaling Group.
+
 •	We will deploy Application Load Balancers (ALBs) in public subnets in both regions. These ALBs will use instance-based target groups to route traffic to EC2 instances.
+
 •	We will create EC2 Auto Scaling Groups (ASGs) in private subnets, and attach them to the ALB target groups to ensure scalable application compute.
+
 •	We will configure Route 53 to implement DNS failover. Health checks will monitor the Active region ALB, and if it becomes unhealthy, Route 53 will automatically route traffic to the Pilot region ALB.
