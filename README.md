@@ -88,6 +88,8 @@ Amazon Route 53 provides highly available DNS with health checks and traffic fai
 •	📘 Reference Docs:
 
 🔗https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html
+
+In AWS, "Pilot Light" is a disaster recovery (DR) strategy where a minimal, essential version of your application infrastructure is kept running in the cloud, ready to be scaled up quickly in the event of a disaster. 
 ________________________________________
 
 ✅ Project Implementation Plan 
